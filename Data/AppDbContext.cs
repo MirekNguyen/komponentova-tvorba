@@ -7,7 +7,8 @@ public class AppDbContext : DbContext
         : base(options)
     {
     }
-    public DbSet<User> Users { get; set; }
+    public DbSet<Author> Authors { get; set; }
+    public DbSet<Book> Books { get; set; }
     // Define your DbSets (tables) here
     // public DbSet<YourEntity> YourEntities { get; set; }
 }

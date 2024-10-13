@@ -1,4 +1,4 @@
-using komponentova_tvorba.Models;
+namespace komponentova_tvorba.Models;
 
 public class Author : User
 {
@@ -13,6 +13,7 @@ public class Author : User
     public int Age()
     {
         var currentYear = DateOnly.FromDateTime(DateTime.Now).Year;
-        return isAlive() ? DateOnly.FromDateTime(DateTime.Now).Year - BirthDate.Year : currentYear - BirthDate.Year;
+        var deathDate = DeathDate ?? DateOnly.FromDateTime(DateTime.Now);
+        return isAlive() ? currentYear - BirthDate.Year : deathDate.Year - BirthDate.Year;
     }
 }

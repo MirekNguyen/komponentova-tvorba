@@ -18,12 +18,12 @@ public class HomeController : Controller
 
     public async Task<IActionResult> Index()
     {
-        var users = await _context.Users.ToListAsync();
-        foreach (var user in users)
+        var authors = await _context.Authors.ToListAsync();
+        foreach (var author in authors)
         {
-            Console.WriteLine($"ID: {user.Id}, Username: {user.Username}, Email: {user.Email}");
+            Console.WriteLine($"ID: {author.Id}, Username: {author.Username}, Email: {author.Email}");
         }
-        return View(users);
+        return View(authors);
     }
 
     public IActionResult Privacy()
@@ -37,9 +37,9 @@ public class HomeController : Controller
     }
 
     // POST: Home/Create
-    public async Task<IActionResult> Create(User user)
+    public async Task<IActionResult> Create(Author user)
     {
-        Console.WriteLine("Creating user");
+        Console.WriteLine("Creating author");
         return RedirectToAction(nameof(Index));
         /*if (ModelState.IsValid)*/
         /*{*/

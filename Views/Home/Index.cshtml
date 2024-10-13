@@ -1,4 +1,4 @@
-﻿@model IEnumerable<komponentova_tvorba.Models.User>
+﻿@model IEnumerable<komponentova_tvorba.Models.Author>
 
 @{
     ViewData["Title"] = "Home Page";
@@ -7,23 +7,29 @@
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-    <h2>Users</h2>
-    <a asp-action="Create" class="btn btn-primary">Create New User</a>
+    <h2>Authors</h2>
+    <a asp-action="Create" class="btn btn-primary">Create New Author</a>
     <table class="table">
       <thead>
         <tr>
           <th>ID</th>
           <th>Username</th>
+          <th>BirthDate</th>
           <th>Email</th>
+          <th>Age</th>
+          <th>is alive</th>
         </tr>
       </thead>
       <tbody>
-        @foreach (var user in Model)
+        @foreach (var author in Model)
         {
         <tr>
-          <td>@user.Id</td>
-          <td>@user.Username</td>
-          <td>@user.Email</td>
+          <td>@author.Id</td>
+          <td>@author.Username</td>
+          <td>@author.BirthDate</td>
+          <td>@author.Email</td>
+          <td>@author.Age()</td>
+          <td>@author.isAlive()</td>
         </tr>
         }
       </tbody>
