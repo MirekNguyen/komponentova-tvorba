@@ -5,12 +5,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace komponentova_tvorba.Controllers;
 
-public class HomeController : Controller
+public class BooksController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     private readonly AppDbContext _context;
 
-    public HomeController(ILogger<HomeController> logger, AppDbContext context)
+    public BooksController(ILogger<HomeController> logger, AppDbContext context)
     {
         _logger = logger;
         _context = context;
@@ -31,30 +31,6 @@ public class HomeController : Controller
         };
 
         return View(viewModel);
-    }
-
-    public IActionResult Privacy()
-    {
-        return View();
-    }
-
-    public IActionResult TestExample()
-    {
-        return View();
-    }
-
-    // POST: Home/Create
-    public async Task<IActionResult> Create(Author user)
-    {
-        Console.WriteLine("Creating author");
-        return RedirectToAction(nameof(Index));
-        /*if (ModelState.IsValid)*/
-        /*{*/
-        /*    _context.Add(user);*/
-        /*    await _context.SaveChangesAsync();*/
-        /*    return RedirectToAction(nameof(Index));*/
-        /*}*/
-        /*return View(user);*/
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -1,0 +1,28 @@
+@model komponentova_tvorba.Models.HomeViewModel
+@{
+  ViewData["Title"] = "Books";
+}
+<h1>@ViewData["Title"]</h1>
+
+<p>Books</p>
+<div class="text-center">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Author name</th>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach (var book in Model.Books)
+      {
+      <tr>
+        <td>@book.Id</td>
+        <td>@book.Title</td>
+        <td>@book.Author.Username</td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>

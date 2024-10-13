@@ -1,5 +1,4 @@
-﻿@model IEnumerable<komponentova_tvorba.Models.Author>
-
+﻿@model komponentova_tvorba.Models.HomeViewModel
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -21,7 +20,7 @@
         </tr>
       </thead>
       <tbody>
-        @foreach (var author in Model)
+        @foreach (var author in Model.Authors)
         {
         <tr>
           <td>@author.Id</td>
@@ -30,6 +29,26 @@
           <td>@author.Email</td>
           <td>@author.Age()</td>
           <td>@author.isAlive()</td>
+        </tr>
+        }
+      </tbody>
+    </table>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Title</th>
+          <th>Author name</th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach (var book in Model.Books)
+        {
+        <tr>
+          <td>@book.Id</td>
+          <td>@book.Title</td>
+          <td>@book.Author.Username</td>
         </tr>
         }
       </tbody>

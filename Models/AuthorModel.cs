@@ -16,4 +16,6 @@ public class Author : User
         var deathDate = DeathDate ?? DateOnly.FromDateTime(DateTime.Now);
         return isAlive() ? currentYear - BirthDate.Year : deathDate.Year - BirthDate.Year;
     }
+
+    public ICollection<Book> Books { get; set; }
 }
