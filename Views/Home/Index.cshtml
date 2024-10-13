@@ -4,17 +4,14 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
     <h2>Authors</h2>
     <a asp-action="Create" class="btn btn-primary">Create New Author</a>
     <table class="table">
       <thead>
         <tr>
           <th>ID</th>
-          <th>Username</th>
+          <th>Fullname</th>
           <th>BirthDate</th>
-          <th>Email</th>
           <th>Age</th>
           <th>is alive</th>
         </tr>
@@ -24,31 +21,10 @@
         {
         <tr>
           <td>@author.Id</td>
-          <td>@author.Username</td>
+          <td>@author.Fullname</td>
           <td>@author.BirthDate</td>
-          <td>@author.Email</td>
           <td>@author.Age()</td>
           <td>@author.isAlive()</td>
-        </tr>
-        }
-      </tbody>
-    </table>
-
-    <table class="table">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Title</th>
-          <th>Author name</th>
-        </tr>
-      </thead>
-      <tbody>
-        @foreach (var book in Model.Books)
-        {
-        <tr>
-          <td>@book.Id</td>
-          <td>@book.Title</td>
-          <td>@book.Author.Username</td>
         </tr>
         }
       </tbody>

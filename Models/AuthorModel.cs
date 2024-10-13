@@ -17,5 +17,7 @@ public class Author : User
         return isAlive() ? currentYear - BirthDate.Year : deathDate.Year - BirthDate.Year;
     }
 
+    public string Fullname => $"{Firstname} {Surname}";
+
     public ICollection<Book> Books { get; set; }
 }

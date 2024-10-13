@@ -9,18 +9,18 @@
   <table class="table">
     <thead>
       <tr>
-        <th>ID</th>
         <th>Title</th>
-        <th>Author name</th>
+        <th>Autor</th>
+        <th>ISBN</th>
       </tr>
     </thead>
     <tbody>
       @foreach (var book in Model.Books)
       {
       <tr>
-        <td>@book.Id</td>
         <td>@book.Title</td>
-        <td>@book.Author.Username</td>
+        <td>@book.Author.Fullname</td>
+        <td>ISBN @book.ISBN</td>
       </tr>
       }
     </tbody>

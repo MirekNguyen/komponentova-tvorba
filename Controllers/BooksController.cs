@@ -19,10 +19,6 @@ public class BooksController : Controller
     public async Task<IActionResult> Index()
     {
         var authors = await _context.Authors.ToListAsync();
-        foreach (var author in authors)
-        {
-            Console.WriteLine($"ID: {author.Id}, Username: {author.Username}, Email: {author.Email}");
-        }
         var books = await _context.Books.ToListAsync();
         var viewModel = new HomeViewModel
         {
