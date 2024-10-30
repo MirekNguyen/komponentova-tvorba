@@ -19,5 +19,5 @@ public class Author : User
 
     public string Fullname => $"{Firstname} {Surname}";
 
-    public ICollection<Book> Books { get; set; }
+    public ICollection<Book>? Books { get; set; }
 }
