@@ -7,4 +7,5 @@ public class Book
     public string? ISBN { get; set; }
     public required DateOnly Published { get; set; }
     public required Author Author { get; set; }
+    public string? ImageUrl { get; set; }
 }
