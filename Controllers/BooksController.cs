@@ -29,6 +29,34 @@ public class BooksController : Controller
         return View(viewModel);
     }
 
+
+    public async Task<IActionResult> Borrow(int id)
+    {
+        var book = await _context.Books.FindAsync(id);
+        var reader = await _context.Readers.FindAsync(1);
+        if (book == null)
+        {
+            return NotFound("Book not found");
+        }
+        if (reader == null)
+        {
+            return NotFound("Reader not found.");
+        }
+
+        var loan = new Loan
+        {
+            Book = book,
+            Reader = reader,
+            LoanDate = DateOnly.FromDateTime(DateTime.UtcNow),
+            DueDate = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(14)),
+            Amount = 1
+        };
+        _context.Loans.Add(loan);
+        await _context.SaveChangesAsync();
+        return RedirectToAction("Index", "Loans");
+    }
+
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
