@@ -11,6 +11,4 @@ public class AppDbContext : DbContext
     public DbSet<Book> Books { get; set; }
     public DbSet<Loan> Loans { get; set; }
     public DbSet<Reader> Readers { get; set; }
-    // Define your DbSets (tables) here
-    // public DbSet<YourEntity> YourEntities { get; set; }
 }
