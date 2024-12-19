@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace komponentova_tvorba.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241219203743_UpdateLoanModel")]
+    partial class UpdateLoanModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.10");
@@ -88,7 +91,7 @@ namespace komponentova_tvorba.Migrations
                     b.Property<DateOnly>("LoanDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("ReaderId")
+                    b.Property<int?>("ReaderId")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateOnly?>("ReturnDate")
@@ -141,15 +144,11 @@ namespace komponentova_tvorba.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("komponentova_tvorba.Models.Reader", "Reader")
+                    b.HasOne("komponentova_tvorba.Models.Reader", null)
                         .WithMany("Loans")
-                        .HasForeignKey("ReaderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ReaderId");
 
                     b.Navigation("Book");
-
-                    b.Navigation("Reader");
                 });
 
             modelBuilder.Entity("komponentova_tvorba.Models.Author", b =>

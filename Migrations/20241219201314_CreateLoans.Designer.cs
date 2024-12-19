@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,37 +10,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace komponentova_tvorba.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241219201314_CreateLoans")]
+    partial class CreateLoans
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.10");
-
-            modelBuilder.Entity("komponentova_tvorba.Models.Author", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateOnly>("BirthDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateOnly?>("DeathDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Firstname")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Surname")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Authors");
-                });
 
             modelBuilder.Entity("komponentova_tvorba.Models.Book", b =>
                 {
@@ -56,6 +34,9 @@ namespace komponentova_tvorba.Migrations
                     b.Property<string>("ImageUrl")
                         .HasColumnType("TEXT");
 
+                    b.Property<int?>("LoanId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<DateOnly>("Published")
                         .HasColumnType("TEXT");
 
@@ -66,6 +47,8 @@ namespace komponentova_tvorba.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AuthorId");
+
+                    b.HasIndex("LoanId");
 
                     b.ToTable("Books");
                 });
@@ -79,35 +62,30 @@ namespace komponentova_tvorba.Migrations
                     b.Property<int>("Amount")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("BookId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<DateOnly>("DueDate")
                         .HasColumnType("TEXT");
 
                     b.Property<DateOnly>("LoanDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("ReaderId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<DateOnly?>("ReturnDate")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BookId");
-
-                    b.HasIndex("ReaderId");
-
                     b.ToTable("Loans");
                 });
 
-            modelBuilder.Entity("komponentova_tvorba.Models.Reader", b =>
+            modelBuilder.Entity("komponentova_tvorba.Models.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasMaxLength(8)
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Firstname")
                         .IsRequired()
@@ -119,7 +97,24 @@ namespace komponentova_tvorba.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Readers");
+                    b.ToTable("Users");
+
+                    b.HasDiscriminator().HasValue("User");
+
+                    b.UseTphMappingStrategy();
+                });
+
+            modelBuilder.Entity("komponentova_tvorba.Models.Author", b =>
+                {
+                    b.HasBaseType("komponentova_tvorba.Models.User");
+
+                    b.Property<DateOnly>("BirthDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateOnly?>("DeathDate")
+                        .HasColumnType("TEXT");
+
+                    b.HasDiscriminator().HasValue("Author");
                 });
 
             modelBuilder.Entity("komponentova_tvorba.Models.Book", b =>
@@ -130,36 +125,21 @@ namespace komponentova_tvorba.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("komponentova_tvorba.Models.Loan", null)
+                        .WithMany("Books")
+                        .HasForeignKey("LoanId");
+
                     b.Navigation("Author");
                 });
 
             modelBuilder.Entity("komponentova_tvorba.Models.Loan", b =>
                 {
-                    b.HasOne("komponentova_tvorba.Models.Book", "Book")
-                        .WithMany()
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("komponentova_tvorba.Models.Reader", "Reader")
-                        .WithMany("Loans")
-                        .HasForeignKey("ReaderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Book");
-
-                    b.Navigation("Reader");
+                    b.Navigation("Books");
                 });
 
             modelBuilder.Entity("komponentova_tvorba.Models.Author", b =>
                 {
                     b.Navigation("Books");
-                });
-
-            modelBuilder.Entity("komponentova_tvorba.Models.Reader", b =>
-                {
-                    b.Navigation("Loans");
                 });
 #pragma warning restore 612, 618
         }
