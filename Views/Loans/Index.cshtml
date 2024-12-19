@@ -1,0 +1,73 @@
+﻿@{
+ViewData["Title"] = "Půjčené knihy";
+}
+
+@model komponentova_tvorba.Models.LoanViewModel
+
+<div class="container my-5">
+  <h2 class="mb-4">@ViewData["Title"]</h2>
+  <ul class="list-group mb-5 shadow rounded">
+    @foreach (var loan in Model.Loans.Where(l => !l.IsReturned))
+    {
+    <li class="list-group-item py-3 bg-light border rounded mb-3">
+      <div class="row">
+        <div class="col-auto d-flex align-items-center">
+          <img src="@loan.Book.ImageUrl" alt="Obálka knihy" style="max-width: 150px; height:auto; object-fit:contain;"
+            class="img-fluid border rounded">
+        </div>
+        <div class="col">
+          <h5 class="text-success">@loan.Book.Title</h5>
+          <p><strong>Autor:</strong> @loan.Book.Author.Fullname</p>
+          <p><strong>Datum vypůjčení:</strong> @loan.LoanDate.ToString("d. MMMM yyyy")</p>
+          <p><strong>Datum splatnosti:</strong> @loan.DueDate.ToString("d. MMMM yyyy")</p>
+
+          <div class="my-2">
+            <span class="badge bg-warning text-dark fs-5">Zbývá dnů: @loan.DaysLeft</span>
+          </div>
+
+          <form asp-action="ReturnBook" asp-controller="Loans" method="post" class="mt-3">
+            <input type="hidden" name="id" value="@loan.Id" />
+            <button type="submit" class="btn btn-success btn-lg">Vrátit knihu</button>
+          </form>
+        </div>
+      </div>
+    </li>
+    }
+  </ul>
+
+  <h2 class="mb-4">Vrácené knihy</h2>
+  <ul class="list-group shadow rounded">
+    @foreach (var loan in Model.Loans.Where(l => l.IsReturned))
+    {
+    <li class="list-group-item py-3 bg-light border rounded mb-3">
+      <div class="row">
+        <div class="col-auto d-flex align-items-center">
+          <img src="@loan.Book.ImageUrl" alt="Obálka knihy" style="max-width: 150px; height:auto; object-fit:contain;"
+            class="img-fluid border rounded">
+        </div>
+        <div class="col">
+          <div class="d-flex justify-content-end">
+            <form asp-action="DeleteLoan" asp-controller="Loans" method="post" class="d-inline">
+              <input type="hidden" name="id" value="@loan.Id" />
+              <button type="submit" class="btn btn-danger btn-sm">
+                <i class="bi bi-trash"></i> Smazat historický záznam
+              </button>
+            </form>
+          </div>
+          <h5 class="text-success">@loan.Book.Title</h5>
+          <p><strong>Autor:</strong> @loan.Book.Author.Fullname</p>
+          <p><strong>Datum vypůjčení:</strong> @loan.LoanDate.ToShortDateString()</p>
+          <p><strong>Datum splatnosti:</strong> @loan.DueDate.ToShortDateString()</p>
+          <p><strong>Datum vrácení:</strong> @loan.ReturnDate?.ToShortDateString()</p>
+          @if (loan.IsLateReturn)
+          {
+          <div class="alert alert-warning mt-3" role="alert">
+            <strong>Pozdní vrácení:</strong> Kniha byla vrácena po splatnosti!
+          </div>
+          }
+        </div>
+      </div>
+    </li>
+    }
+  </ul>
+</div>

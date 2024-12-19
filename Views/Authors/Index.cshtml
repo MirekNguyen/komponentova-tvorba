@@ -1,32 +1,43 @@
 ﻿@model komponentova_tvorba.Models.HomeViewModel
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Seznam autorů";
 }
 
-<div class="text-center">
-    <h2>Authors</h2>
-    <a asp-action="Create" class="btn btn-primary">Create New Author</a>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Fullname</th>
-          <th>BirthDate</th>
-          <th>Age</th>
-          <th>is alive</th>
-        </tr>
-      </thead>
-      <tbody>
-        @foreach (var author in Model.Authors)
-        {
-        <tr>
-          <td>@author.Id</td>
-          <td>@author.Fullname</td>
-          <td>@author.BirthDate</td>
-          <td>@author.Age()</td>
-          <td>@author.isAlive()</td>
-        </tr>
-        }
-      </tbody>
-    </table>
+<div class="text-center my-4">
+    <h2 class="mb-4">@ViewData["Title"]</h2>
+    <div class="table-responsive">
+        <table class="table table-hover align-middle border rounded">
+            <thead class="table-success">
+                <tr>
+                    <th>Autor</th>
+                    <th>Datum narození</th>
+                    <th>Datum úmrtí</th>
+                    <th>Věk</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var author in Model.Authors)
+                {
+                    <tr>
+                        <td>@author.Fullname</td>
+                        <td>@author.BirthDate.ToString("d")</td>
+                        <td>@(author.DeathDate.HasValue ? author.DeathDate.Value.ToString("d") : "-")</td>
+                        <td>@(author.Age() > 0 ? author.Age().ToString() : "-")</td>
+                        <td>
+                            @if (author.isAlive())
+                            {
+                                <span class="badge bg-success">Žije</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger">Zemřel</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
+

@@ -1,27 +1,30 @@
 @model komponentova_tvorba.Models.HomeViewModel
 @{
-  ViewData["Title"] = "Books";
+    ViewData["Title"] = "Seznam knih";
 }
-<h1>@ViewData["Title"]</h1>
 
-<div class="text-center">
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Title</th>
-        <th>Autor</th>
-        <th>ISBN</th>
-      </tr>
-    </thead>
-    <tbody>
-      @foreach (var book in Model.Books)
-      {
-      <tr>
-        <td>@book.Title</td>
-        <td>@book.Author.Fullname</td>
-        <td>ISBN @book.ISBN</td>
-      </tr>
-      }
-    </tbody>
-  </table>
+<div class="text-center my-4">
+    <h2 class="mb-4">@ViewData["Title"]</h2>
+    <div class="table-responsive">
+        <table class="table table-hover align-middle border rounded">
+            <thead class="table-success">
+                <tr>
+                    <th>Název knihy</th>
+                    <th>Autor</th>
+                    <th>ISBN</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var book in Model.Books)
+                {
+                    <tr>
+                        <td>@book.Title</td>
+                        <td>@book.Author.Fullname</td>
+                        <td><span class="badge bg-primary">ISBN @book.ISBN</span></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
+

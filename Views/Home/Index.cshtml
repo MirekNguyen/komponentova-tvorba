@@ -1,7 +1,52 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+  ViewData["Title"] = "Knihovna";
 }
 
 <div class="text-center">
-    <h1>Půjčovna knih</h1>
+  <div class="container my-5">
+    <h2 class="mb-4">@ViewData["Title"]</h2>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      @foreach (var book in Model.Books)
+      {
+      <div class="col">
+        <div class="card h-100 shadow-lg rounded-lg">
+          <div class="image-container rounded-top">
+            <img src=@book.ImageUrl class="card-img-top object-fit-contain" alt="Book Cover 1">
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">@book.Title</h5>
+            <p class="card-text"><strong>Autor:</strong> @book.Author.Fullname</p>
+            <form asp-action="Borrow" asp-controller="Books" method="post">
+              <input type="hidden" name="id" value="@book.Id" />
+              <button type="submit" class="btn btn-success btn-lg w-100 mt-3">
+                <i class="bi bi-book-half"></i> Půjčit knihu
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+  </div>
 </div>
+
+<style>
+  .image-container {
+    height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .image-container img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+</style>
