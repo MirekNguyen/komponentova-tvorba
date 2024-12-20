@@ -2,6 +2,7 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using komponentova_tvorba.Models;
 using Microsoft.EntityFrameworkCore;
+using komponentova_tvorba.ViewModels;
 
 namespace komponentova_tvorba.Controllers;
 
