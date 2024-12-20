@@ -8,10 +8,10 @@ namespace komponentova_tvorba.Controllers;
 
 public class LoansController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
+    private readonly ILogger<LoanViewModel> _logger;
     private readonly AppDbContext _context;
 
-    public LoansController(ILogger<HomeController> logger, AppDbContext context)
+    public LoansController(ILogger<LoanViewModel> logger, AppDbContext context)
     {
         _logger = logger;
         _context = context;
@@ -60,11 +60,6 @@ public class LoansController : Controller
         await _context.SaveChangesAsync();
 
         return RedirectToAction(nameof(Index));
-    }
-
-    public IActionResult Privacy()
-    {
-        return View();
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -7,10 +7,10 @@ namespace komponentova_tvorba.Controllers;
 
 public class AuthorsController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
+    private readonly ILogger<AuthorsController> _logger;
     private readonly AppDbContext _context;
 
-    public AuthorsController(ILogger<HomeController> logger, AppDbContext context)
+    public AuthorsController(ILogger<AuthorsController> logger, AppDbContext context)
     {
         _logger = logger;
         _context = context;
@@ -20,7 +20,7 @@ public class AuthorsController : Controller
     {
         var authors = await _context.Authors.ToListAsync();
         var books = await _context.Books.ToListAsync();
-        var viewModel = new HomeViewModel
+        var viewModel = new AuthorViewModel
         {
             Authors = authors,
             Books = books
