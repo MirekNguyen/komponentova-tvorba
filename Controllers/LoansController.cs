@@ -1,7 +1,7 @@
 
 using System.Diagnostics;
+using komponentova_tvorba.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using komponentova_tvorba.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace komponentova_tvorba.Controllers;
@@ -37,7 +37,7 @@ public class LoansController : Controller
         var loan = await _context.Loans.FindAsync(id);
         if (loan == null)
         {
-            return NotFound();
+            return NotFound("Loan not found");
         }
 
         loan.ReturnDate = DateOnly.FromDateTime(DateTime.Today);
@@ -52,7 +52,7 @@ public class LoansController : Controller
         var loan = await _context.Loans.FindAsync(id);
         if (loan == null)
         {
-            return NotFound();
+            return NotFound("Loan not found");
         }
 
         _context.Loans.Remove(loan);
@@ -63,11 +63,6 @@ public class LoansController : Controller
     }
 
     public IActionResult Privacy()
-    {
-        return View();
-    }
-
-    public IActionResult TestExample()
     {
         return View();
     }

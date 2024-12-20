@@ -1,4 +1,6 @@
-namespace komponentova_tvorba.Models;
+using komponentova_tvorba.Models;
+
+namespace komponentova_tvorba.ViewModels;
 
 public class HomeViewModel
 {
