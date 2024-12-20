@@ -35,6 +35,8 @@ ______________________________________________________________________
    dotnet run
    ```
 
+2. Otevřete aplikaci v prohlížeči na adrese [http://localhost:5198](http://localhost:5198).
+
 ### 2. Spuštění aplikace pro vývoj pomocí .NET CLI
 
 1. Naklonujte si tento repozitář
@@ -62,7 +64,7 @@ ______________________________________________________________________
    dotnet run
    ```
 
-5. Otevřete aplikaci v prohlížeči na adrese [http://localhost:5000](http://localhost:5000).
+5. Otevřete aplikaci v prohlížeči na adrese [http://localhost:5198](http://localhost:5198).
 
 ### 3. Spuštění pomocí Dockeru
 
